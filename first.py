@@ -8,7 +8,7 @@ elif choice == 'F' or choice == 'f':
 elif choice == 'R' or choice == 'r':
     print('Horse')
 else:
-    print('Not choice')
+    print('Not choice Ploxo')
 
 
 '''
