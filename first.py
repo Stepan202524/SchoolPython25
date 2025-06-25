@@ -1,8 +1,11 @@
-a = 3
-b = 5
-print('Do')
-print('a=', a, 'b=', b)
-a, b = b, a  #swap
-print('Do')
-print('a=', a, 'b=', b)
-print('hello')
+# Iterable object
+# len() - сколько элементов в объекте
+a = 123456  # int - не является iterable
+lenght = len(str(a))  # поэтому конвертируем в str
+print(lenght)
+
+word = input(' please word for analys:')
+if not word or len(word) < 3:
+    print('Net slova or small')
+if len(word) > 3:
+    print('dlina slova "'+ word + '"=', len(word))
