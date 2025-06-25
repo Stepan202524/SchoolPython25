@@ -1,22 +1,14 @@
-prompt = """Left or Forward or Right"""
-print(prompt)
-choice = input('Choice: ')
-if choice == 'L' or choice == 'l':
-    print('Wave')
-elif choice == 'F' or choice == 'f':
-    print('Yahoo')
-elif choice == 'R' or choice == 'r':
-    print('Horse')
-else:
-    print('Not choice Ploxo')
-# More instruction, Very more
+hour = int(input('Time please: '))
+if hour > 23:
+    hour = 23
+if hour < 0:
+    hour = 0
 
-'''
-a = 3
-if a == 5:
-    print('ura')
-elif a == 3:
-    print('yahoo')
+if 7 <= hour < 12:
+    print('Morning')
+elif 12 <= hour < 18:
+    print('Day')
+elif 18 <= hour < 23:
+    print('Evening')
 else:
-    print('not')
-'''
+    print('Good night')
