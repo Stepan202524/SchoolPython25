@@ -7,5 +7,3 @@ print(lenght)
 word = input(' please word for analys:')
 if not word or len(word) < 3:
     print('Net slova or small')
-if len(word) > 3:
-    print('dlina slova "'+ word + '"=', len(word))
