@@ -9,7 +9,7 @@ elif choice == 'R' or choice == 'r':
     print('Horse')
 else:
     print('Not choice Ploxo')
-
+# More instruction, Very more
 
 '''
 a = 3
