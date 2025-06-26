@@ -1,16 +1,15 @@
 # break, continue
 
-num = 3  #Угадать это число
+# Loop's: (циклы)
+# while
+# for
+counter = 0  # обнуляем счётчик
+# цикл из 5ти итераций, но 3 пропускаем
+while counter < 5:
+    counter += 1  # краткая запись бинарным оператором
+    if counter == 3:
+        continue  # прервать текущую итерацию и начать следующую
+    print(f'Iteration number {counter}')
+    # counter = counter + 1  # инкремент
 
-var =''
-print('Ugaday number')
-while True:
-    var = int(input('Your num:'))
-    if var == num:
-        print('Yahoo')
-        break  # принудительный вылет из цикла
-    elif var > num:
-        print('Big num')
-    else:
-        print('Small num')
-print('welcome')
+
