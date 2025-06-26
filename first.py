@@ -1,7 +1,18 @@
-#  Диапазон роста
-rost = int(input('Please your rost: '))
-while rost <= 150 or rost >= 180: # 150 >= rost <= 180:
-    print('Sorry')
-    rost = int(input('Again:'))
+print('Ходы:\n\tL-left\n\tR- Right\n\tF-Forward\n\tQ - exit')
 
-print(f'Yes, Your rost: {rost}')
+while True:
+    ch = input('Yor choise')
+    match ch:
+        case 'L' | 'l' | 'л' | 'Л':
+            print('Turn left')
+        case 'R':
+            print('Turn right')
+        case 'F':
+            print('Turn forward')
+        case ' ':
+            print('No choice')
+        case 'Q':
+            print('Bay')
+            break
+        case _:  # default
+            print('Choice ne ponyatno')
