@@ -1,15 +1,7 @@
-# break, continue
+#  Диапазон роста
+rost = int(input('Please your rost: '))
+while rost <= 150 or rost >= 180: # 150 >= rost <= 180:
+    print('Sorry')
+    rost = int(input('Again:'))
 
-# Loop's: (циклы)
-# while
-# for
-counter = 0  # обнуляем счётчик
-# цикл из 5ти итераций, но 3 пропускаем
-while counter < 5:
-    counter += 1  # краткая запись бинарным оператором
-    if counter == 3:
-        continue  # прервать текущую итерацию и начать следующую
-    print(f'Iteration number {counter}')
-    # counter = counter + 1  # инкремент
-
-
+print(f'Yes, Your rost: {rost}')
