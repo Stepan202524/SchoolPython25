@@ -1,12 +1,14 @@
+# break, continue
+
 num = 3  #Угадать это число
-flag = True
+
 var =''
 print('Ugaday number')
-while flag:
+while True:
     var = int(input('Your num:'))
     if var == num:
         print('Yahoo')
-        flag = not flag  # flag  инвертирован
+        break  # принудительный вылет из цикла
     elif var > num:
         print('Big num')
     else:
