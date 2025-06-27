@@ -1,15 +1,13 @@
-# Операции над множествами
-a = {3, 5, 7}
-b = {3, 5, 7, 9, 11}
-# объединение множеств
-c = a.union(b)  # c = a / b
-print(c)
-# пересечение - получение аргументов в обоих множествах (и там, и там)
-c = a.intersection(b) # c = a & b
-print(c)
-# разность - есть в первом, но нет во втором
-c = b.difference(a) # c = b - a
-print(c)
-# симметричная разность - есть только в одном из двух
-c = b.symmetric_difference(a)  # c = b ^ a
-print(c)
+# Строки (immutable, iterable)
+s = 'Python'
+print(s[0])  # вывод значения по индексу, индекс может быть отрицательным (отсчёт с конца строки)
+print(f'Dlina stroki: {len(s)}')
+v = 0
+for ch in s:
+    if ch in {'a', 'e', 'i', 'o', 'y'}:  # или if ch in 'aeioy'
+        v += 1
+print(f' Number glasnyx v stroke "{s}" = {v}')
+
+# перебор строки по  числовому индексу
+for index in range(len(s)):
+    print(s[index])
