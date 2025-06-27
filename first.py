@@ -11,3 +11,12 @@ print(f' Number glasnyx v stroke "{s}" = {v}')
 # перебор строки по  числовому индексу
 for index in range(len(s)):
     print(s[index])
+# замена символа в строке по индексу
+d = 'sabaka'
+res = ''
+for i in range(len(d)):
+    if i == 1:
+        res += 'o'
+    else:
+        res += d[i]
+print(res)
