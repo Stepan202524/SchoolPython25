@@ -1,18 +1,10 @@
-# Коллекции (set, list, dict, tuple)
-# 1-Множества
-s = set()  # пустое множество
-s= {'3', '5', '7', '3', 6}
-s.add(8.5) # добавить в множество
-s.remove('3') # удаление элемента из множества
-s.discard('3') # удаляет в слепую (есть или нет)
-temp = s.pop() # удаляет случайный элемент и возвращает
-# s.clear() очистка множества
-print(temp)
-print(type(s))  # класс (тип переменной)
-print(f'Число элементов в s = {len(s)}')
-if '3' in s:
-    print('Yes')
+# города игра
+s = set()
+while (city := input('Please city :')) != '':
+    if city in s:
+        print('Uje est`')
+    else:
+        s.add(city)
+print(f'Vsego city: {len(s)} ukazano:')
 for item in s:
-    print(item)
-print(s)
-# методы множеств
+    print('\t', item)
