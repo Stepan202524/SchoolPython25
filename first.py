@@ -1,11 +1,16 @@
 # Строки (immutable, iterable)
-# Таблица символов
-s ='\xB0'
-u = '\u2603' # в 16тиричной системе
+# Методы строк
+phrase = 'Язык Python'
+print(phrase.lower())  # все маленькие
+print(phrase.upper())  # все большие
+print(phrase.capitalize())  # только первая заглавная
+print(phrase.title())  # все слова заглавные
+print('Телевизор'.count('е')) # сколько букв в слове
+print('Телевизор'.index('з')) # возвращает индекс буквы в слове
 
-print(u)
-print('25' + s + 'C')
-print(f'Kod symbola ☃ UNICODE: {ord('☃')}')
-# ord(символ) - возвращает код символа в unicod в 10тиричной
-# chr(kod)    - возвращает символ по unicode в 10тиричной
-print(chr(9731))
+# Повтор каждой буквы слова столько раз, какой её номер в строке начиная с первой
+word = 'статор'
+for i in range(len(word)):
+    print(word[i] * (i + 1), end='')
+
+print(word.strip())  # убираем лишние пробелы до и после слова
