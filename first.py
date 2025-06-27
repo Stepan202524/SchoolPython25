@@ -1,10 +1,15 @@
-# города игра
-s = set()
-while (city := input('Please city :')) != '':
-    if city in s:
-        print('Uje est`')
-    else:
-        s.add(city)
-print(f'Vsego city: {len(s)} ukazano:')
-for item in s:
-    print('\t', item)
+# Операции над множествами
+a = {3, 5, 7}
+b = {3, 5, 7, 9, 11}
+# объединение множеств
+c = a.union(b)  # c = a / b
+print(c)
+# пересечение - получение аргументов в обоих множествах (и там, и там)
+c = a.intersection(b) # c = a & b
+print(c)
+# разность - есть в первом, но нет во втором
+c = b.difference(a) # c = b - a
+print(c)
+# симметричная разность - есть только в одном из двух
+c = b.symmetric_difference(a)  # c = b ^ a
+print(c)
