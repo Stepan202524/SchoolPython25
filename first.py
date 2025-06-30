@@ -1,55 +1,32 @@
-# Строки (immutable, iterable)
-# Начало и окончание строки startswith endswith
-s = 'Смотреть, вертеть, видеть'
-if s.lower().startswith('смо'):
-    print('Yes')
-if s.endswith('еть'):
-    print('Ye')
-index = s.find('еть')  # возвращает первое появление 'еть' поиск с начала строки s
-print(index)
+# Списки
 
-# find('подстрока')
-# find('подстрока',start) поиск с начало строки s с позиции start
-# find('подстрока', 10, 15) поиск с позиции 10 и до позиции 15
-s1 = 'синхрофазотрон'
-ch = 'о'
-if ch in s1:
-    count = s1.count(ch)
-    print(f'Буква {ch} столько раз {count} в слове {s1}')
-    print(f'position: ', end='')
-    start = 0
-    for i in range(count):
-        pos = s1.find(ch, start)
-        start = pos + 1
-        print(pos)
-else:
-    print(f'Буквы {ch} нет в слове {s1}')
+# lst = []   # empty список
+lst = [1, 2, 3] * 3
+print(lst, list('Python'))
 
-# replace('что', 'на что') - полная замена
-# replace('что', 'на что', сколько раз)  - число замен
-s2 = '+7-012-345-67-89'
-res = ''
-res = s2.replace('-',' (', 1)
-res = res.replace('-',') ', 1)
-print(res)
-#
-# Срез (у строки и у других коллекций, кроме set
-# [начало:окончание:шаг]
-s3 = 'добрый день'
-print(s3[0:6:1])  # print(s3[:6]) от начала и до заданного индекса
-print(s3[7:11:1]) # print(s3[7:]) от текущего индекса до конца
-print(s3[3:8])  # от n до m (не включая)
-print(s3[::-1]) # выведет с конца строки наоборот
+s1 = [1, 2, 3]
+s2 = [4, 5, 6]
+s1.extend(s2) # сложение двух списков
+s1 += [7]     # добавление в список значение 7
+s1[0] = 22    # изменить 1ый элемент на 22
+print(s1)
 
-if s3 == s3[::-1]:
-    print(f'Stroka "{s3}" - palindrom')
-else:
-    print(f'Stroka "{s3} - ne palindrom')
+lst1 = list(range(10))
+slice = lst1[1:len(lst1):2]
+for item in lst1:
+    print(item, '-', item ** 2)
+for item in range(0, len(lst1)):
+   print(lst1[item], '=', lst1[item] * 2)
 
-s4 = 'Дорог Рим город или дорог Миргород'
-t1 = '...'
-print(s4[26:] + (s4[19:25]+ t1) * 2)
+lst2 = [1, 2, 2, 3, 4, 5, 6]
+lst2.remove(2)  # удаляет первый попавшийся элемент 2
+print(lst2)
+lst2.pop(4)     # удаляет элемент после элемента 4
+print(lst2)
+lst2.append(2)  # добавляет в конец списка элемент 2
+print(lst2)
 
-t2 = s4.lower()
-res1 = t2[:6][::-1] + ' ' + s4[26:]
-print(res1.title())
+a = ['a', 'b', 'c']
+b = a.copy()
+b.append('d')
+print(a, '=', b)
