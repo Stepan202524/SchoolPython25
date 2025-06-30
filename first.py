@@ -40,3 +40,20 @@ lst4 = list(temp)
 lst4.sort()   # сортировка по алфавиту
 for i in range(len(lst4)):
     print(f'\t{i + 1}. {lst4[i]}')
+
+# имитация stack
+lst5 = []
+N = 5
+for i in range(N):
+    print(f'Kladem knigu {i + 1} .')
+    lst5.append(i + 1)
+print('---')
+while lst5:
+    item = lst5.pop()
+    print(f'Zabiraem rnigu {item} .')
+#while (item := input('please knigi: ')) != '':
+#    lst5.append(item)
+#print(f'Stolko knig: {len(lst5)}')
+#for d in range(len(lst5)):
+#    lst5 = lst5.pop(len(lst5 - 1))
+#    print (f'остались: {lst5}')
