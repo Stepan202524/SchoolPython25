@@ -32,7 +32,7 @@ res = ''
 res = s2.replace('-',' (', 1)
 res = res.replace('-',') ', 1)
 print(res)
-
+#
 # Срез (у строки и у других коллекций, кроме set
 # [начало:окончание:шаг]
 s3 = 'добрый день'
@@ -45,3 +45,11 @@ if s3 == s3[::-1]:
     print(f'Stroka "{s3}" - palindrom')
 else:
     print(f'Stroka "{s3} - ne palindrom')
+
+s4 = 'Дорог Рим город или дорог Миргород'
+t1 = '...'
+print(s4[26:] + (s4[19:25]+ t1) * 2)
+
+t2 = s4.lower()
+res1 = t2[:6][::-1] + ' ' + s4[26:]
+print(res1.title())
