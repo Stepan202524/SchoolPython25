@@ -30,3 +30,13 @@ a = ['a', 'b', 'c']
 b = a.copy()
 b.append('d')
 print(a, '=', b)
+
+lst4 = []
+while (item := input('please ingredients: ')) != '':
+    lst4.append(item)
+print(f'Stolko ingredients: {len(lst4)}')
+temp = set(lst4) # перевод во множества
+lst4 = list(temp)
+lst4.sort()   # сортировка по алфавиту
+for i in range(len(lst4)):
+    print(f'\t{i + 1}. {lst4[i]}')
