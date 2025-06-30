@@ -24,3 +24,8 @@ s = {'Krut', 'Selez', 'Mitr'}  # множество
 #lst.sort()
 lst = sorted(s)   # возвращает сортированный список
 print(*lst, sep=', ')
+
+fio = ['Krut', 'Mitr', 'Selez']
+for i, v in enumerate(fio):  # Нумерует список и выводит кортежем В цикле for возвращает пару(i, v)
+    print(f'{i + 1}. {v}.')
+
