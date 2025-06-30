@@ -1,16 +1,16 @@
 # Строки (immutable, iterable)
-# Методы строк
-phrase = 'Язык Python'
-print(phrase.lower())  # все маленькие
-print(phrase.upper())  # все большие
-print(phrase.capitalize())  # только первая заглавная
-print(phrase.title())  # все слова заглавные
-print('Телевизор'.count('е')) # сколько букв в слове
-print('Телевизор'.index('з')) # возвращает индекс буквы в слове
-
-# Повтор каждой буквы слова столько раз, какой её номер в строке начиная с первой
-word = 'статор'
-for i in range(len(word)):
-    print(word[i] * (i + 1), end='')
-
-print(word.strip())  # убираем лишние пробелы до и после слова
+#
+alphab = 'абвгдеёжзийклмнопрстуфхцшщъэюя'
+# alphab_u += alphab.upper()   добавляем Заглавные буквы и тогда надо убрать .lower()
+mess = input('Stroka: ').strip().lower()  # убираем пробелы и делаем все буквы малыми
+key = int(input('key: '))
+crypt = ''
+for lett in mess:    # перебираем каждый символ
+    if lett in alphab:  # проверка символа как буква из алфавита
+        t = alphab.index(lett)   # находим позицию буквы в алфавите
+        newkey = (t + key) % len(alphab) # шифровка Вычисляем новую позицию с учётом сдвига (с остатком от деления)
+        # newkey = (t - key) % len(alphab)  - расшифровка
+        crypt += alphab[newkey]
+    else:
+        crypt += lett
+print('Шифр: ',crypt)
