@@ -1,31 +1,15 @@
-# Кортеж (tuple, immutable)
-channels = ('red', 'green', 'blue')
-r, g, b = channels    # распаковка
-print(r, b)
-a, b, c = 1, 2, 3 # input(), input(), input()
-d, e = [4, 5], 6 # упаковка в d [4, 5]
+# Методы строки split() и join()
 
-# студент и средний балл
-N=3
-studs = []
-for _ in range(N):
-    stud, aver = input('Name'), float(input('Ball'))
-    studs.append((stud, aver)) # append идёт кортежом (скобки в скобках) через ,
-print(studs)
+text = 'один два три пять'
+# split() - расщипляет строку на элементы и возвращает списком и только списком
+lst = text.split() # все символы пустого пространства
+ip = '192.168.0.3'
+lst1 = ip.split('.')
+print(lst, lst1)
 
-for st in studs:
-    stud, aver = st  # распаковка
-    print('Sudent: ', stud)
-    print('Sredniy ball: ', aver)
+text2 = '-'.join(lst1) # соединяет список из строковых значений Join работает только для списков из строк
+print(text2)
 
-#Функция sorted()
-s = {'Krut', 'Selez', 'Mitr'}  # множество
-#lst = list(s)
-#lst.sort()
-lst = sorted(s)   # возвращает сортированный список
-print(*lst, sep=', ')
-
-fio = ['Krut', 'Mitr', 'Selez']
-for i, v in enumerate(fio):  # Нумерует список и выводит кортежем В цикле for возвращает пару(i, v)
-    print(f'{i + 1}. {v}.')
-
+text3 = '  P y  t h    o   n   '
+res = ''.join(text3.split())  # убрать все пробелы
+print(res)
