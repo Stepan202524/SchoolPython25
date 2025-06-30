@@ -1,9 +1,9 @@
-# Списки
-# Создание аббревиатур
+# Кортеж Tuple
+BLACK = (0, 0, 0) # неизменяемая структура в памяти
+empty = () #tuple()
+one = (1,) # кортеж заканчивается на ,
+s = 'Python'
+t = tuple(s) + ('.',)  # создание нового кортежа прибавлением ещё одного кортежа
+print(t)
 
-lst = []
-while (word := input('please: ').strip().capitalize()) != '':
-    lst.append(word[0])  # Добавляем в список первую букву слова
-print(f'Poluchilos', end=': ')
-print(*lst)
-
+cards = [(7, 'chervy'), ('tuz', 'piki')] # кортеж из двух списков
