@@ -17,3 +17,10 @@ for st in studs:
     stud, aver = st  # распаковка
     print('Sudent: ', stud)
     print('Sredniy ball: ', aver)
+
+#Функция sorted()
+s = {'Krut', 'Selez', 'Mitr'}  # множество
+#lst = list(s)
+#lst.sort()
+lst = sorted(s)   # возвращает сортированный список
+print(*lst, sep=', ')
