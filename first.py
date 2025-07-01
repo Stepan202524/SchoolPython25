@@ -33,3 +33,6 @@ print(matrix1)
 for row in range(len(matrix)):
     for col in range(len(matrix[row])):
         print(matrix[row][col])
+
+matrix2 = [[i + j for j in range(3)] for i in range(1, 10, 3)]  # Другой способ заполнения матрицы
+print(matrix2)
