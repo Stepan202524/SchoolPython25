@@ -1,28 +1,16 @@
 # Функции
-# Scope (local or global)
-# Синтаксис функции
-# def <имя функции>([параметры]):
-#    команды                        Когда определяю функцию это параметры
+# Return Value
+def square(num):
+    return num ** 2
 
-# Отступать две строки перед функцией
-#
-def greet(name):
-    print('Privet,', name)
-#  Отступать две строки после функции                    Если функция не возвращает - это, может быть процедура
-#                                   Когда вызываю функцию это аргументы
-greet()                       # В функцию передаётся КОПИЯ глобальной переменной, изменять её в функции НЕ возможно
+                                    # После return функция останавливается (подобно break в цикле)
+def even_odd(num):
+    if num % 2 == 0:
+        return 'Chetnoe'
+    return 'NotCHetnoe'
 
 
-def increment():
-    global count
-    count += 1   #  Поменяли глобальную переменную (!Опасность, Очень Аккуратно!)
+t = square(5)
+print(t)
 
-
-def print_list(array):
-    if array is None:
-        array = []
-    for item in array:
-        print(item)
-
-
-
+print(even_odd(10))
