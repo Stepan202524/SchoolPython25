@@ -1,38 +1,26 @@
-# Списочные выражения (list comprehension)
-# Список квадратов чисел от 0 до 9
-squar = [i**2 for i in range(10)]
-print(*squar, sep=', ')
+# Словари
+# Пустой словарь  1. d = {}  2. d = dict()
+# Предзаполненный словарь
+d = {
+    'table': 'таблица',
+    'well': ['хорошо', 'колодец', 'скважина'],
+    'chair': 'стул',
+    'apple': 'яблоко',
+    1: 'один',
+}
+print(d['well'][2], d[1])
+d['plum'] = 'слива'# добавление в оперативную память в словарь, после окончания проги предзаполненный словарь останется изначальным
+d['well'].append('яма') # добаление элемента в список ключа
+del d['chair']
+print(d)  # словарь целиком как есть
 
-# Список чётных чисел
-squar = [i**2 for i in range(10) if i % 2 == 0]
-        # что|   закон          |  условие
-print(*squar, sep=', ')
+for key in d:               # Вывод словаря красиво
+    print(key, ' =', d[key])
 
-# произведение i и j
-print([i * j for i in range(3) for j in range(3)])
-
-# перевод строки в список чисел (можно присвоить переменной)
-n = '500 600 700 800 900'
-app = ['500', '800'] # исключения| условие  |
-print([int(i) for i in n.split() if i not in app])
-
-# занести в список каждое третье слово из предложения
-text = 'Каждое третье слово из этого бреда что зачем куда'
-print(*[a for a in text.split()[2::3]])
-                            # срез с третьего слова с шагом 3 слова
-# Вложенные списки
-matrix = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-]
-N = 3
-matrix1 = [[1] * N for _ in range(N)]   # _  Неиспользуемая переменная
-print(matrix1)
-# обход 2-мерного списка (матрицы)
-for row in range(len(matrix)):
-    for col in range(len(matrix[row])):
-        print(matrix[row][col])
-
-matrix2 = [[i + j for j in range(3)] for i in range(1, 10, 3)]  # Другой способ заполнения матрицы
-print(matrix2)
+del_item = d.pop('apple')  # Удаление по ключу элемента из словаря
+if 'table' in d:
+    print('Yes')
+""" Методы словаря
+'clear', 'copy', 'fromkeys', 'get', 'items', 'keys',
+'pop', 'popitem', 'setdefault', 'update', 'values'
+"""
