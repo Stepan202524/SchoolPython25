@@ -20,3 +20,16 @@ print([int(i) for i in n.split() if i not in app])
 text = 'Каждое третье слово из этого бреда что зачем куда'
 print(*[a for a in text.split()[2::3]])
                             # срез с третьего слова с шагом 3 слова
+# Вложенные списки
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+]
+N = 3
+matrix1 = [[1] * N for _ in range(N)]   # _  Неиспользуемая переменная
+print(matrix1)
+# обход 2-мерного списка (матрицы)
+for row in range(len(matrix)):
+    for col in range(len(matrix[row])):
+        print(matrix[row][col])
