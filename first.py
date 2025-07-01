@@ -1,30 +1,22 @@
-# Методы строки split() и join()
+# Списочные выражения (list comprehension)
+# Список квадратов чисел от 0 до 9
+squar = [i**2 for i in range(10)]
+print(*squar, sep=', ')
 
-text = 'один два три пять'
-# split() - расщипляет строку на элементы и возвращает списком и только списком
-lst = text.split() # все символы пустого пространства
-ip = '192.168.0.3'
-lst1 = ip.split('.')
-print(lst, lst1)
+# Список чётных чисел
+squar = [i**2 for i in range(10) if i % 2 == 0]
+        # что|   закон          |  условие
+print(*squar, sep=', ')
 
-text2 = '-'.join(lst1) # соединяет список из строковых значений Join работает только для списков из строк
-print(text2)
+# произведение i и j
+print([i * j for i in range(3) for j in range(3)])
 
-text3 = '  P y  t h    o   n   '
-res = ''.join(text3.split())  # убрать все пробелы
-print(res)
-# Фраза: ну я типа вообще короче не понимаю этот язык
-stop_words = ['ну', 'типо', 'короче']
-text = ''
-lst2 = ''
-while (message := input('Сообщение: ')) != '':
-    lst2 = message.split()
-for item in lst2:
-    if item in stop_words:
-        item = ''
-    else:
-        text += item + ' '
-        res = ''.join(text.split())
-print(res)
-for a, b in enumerate(res, 1):
-    print(f'{a}. {b}')
+# перевод строки в список чисел (можно присвоить переменной)
+n = '500 600 700 800 900'
+app = ['500', '800'] # исключения| условие  |
+print([int(i) for i in n.split() if i not in app])
+
+# занести в список каждое третье слово из предложения
+text = 'Каждое третье слово из этого бреда что зачем куда'
+print(*[a for a in text.split()[2::3]])
+                            # срез с третьего слова с шагом 3 слова
