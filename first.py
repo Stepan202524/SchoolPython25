@@ -32,3 +32,10 @@ def main():
 
 
 main()      # Вызываем главную функцию и она уже выводит на экран
+
+
+def generate_list():
+    for i in range(5):
+        yield i         # Генератор -- Возвращает значение переменной, но не останавливает
+array = tuple(generate_list())
+print(array)
