@@ -1,14 +1,14 @@
 # Анонимные функции (однострочные, безымянные)
 # lambda  <Аргументы>: <выражение>
-# Ключ сортировки
+# проверка коллекций: any(), all()
 
-words = ['v','etom', 'spiske', 'slova', 'kotoryx']
-# Сортировка по последней букве или s: (s[1], s[-1]) сначала по 1-й потом по последней
-print(sorted(words, key=lambda s: s[-1]))
+# any - любой элемент коллекции вернул True
+# all - все элементы коллекции вернули True
 
-goods = [
-    ['Utyug', 1000, 2],
-    ['Fen', 1000, 5],
-    ['Chaynik', 5000, 1]
-]
-print(sorted(goods, key=lambda s: (s[1], s[2], s[0])))   # сортировка по цене, по кол-ву, по имени
+print(all([1, 2, 3]))  # все элементы ненулевые
+print(all([1, 2, 0]))  # один элемент нулевой
+
+# проверка всех слов из списка по длине слов
+words = 'Odin dva tri'.split()
+list_for_ana = list(map(lambda x: len(x) > 3, words))
+print(list_for_ana, all(list_for_ana), any(list_for_ana))
