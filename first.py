@@ -1,18 +1,17 @@
-# Анонимные функции (однострочные, безымянные)
-# lambda  <Аргументы>: <выражение>
-# Потоковый ввод sys.stdin
-import sys
+# Рекурсия функция вызывает сама себя
+def factorial(count):  # 5! = 1 * 2 * 3 * 4 * 5
+    res = 1
+    for i in range(2, count + 1):
+        res *= i
+    return res
 
-# for line in sys.stdin:
-#     print(line)
-data = sys.stdin.readlines()
-print(data, [d.strip('\n') for d in data])
-# data1 = [d.strip('\n') for d in data]  # Убираем символы \n
+for x in range(6):
+    print(x, factorial(x))
 
-temp =[]                # индекс строки в date и числа слов в виде кортежей
-for i,s in enumerate(data):
-    temp.append((i, len(s.split())))
-temp.sort(key=lambda x:x[1])
-index = temp[0][0]
-res = sorted(data[index].split())
-print(*res, sep='-')
+
+def factor(x):
+    if x == 1 or x == 0:              #  Базовый вариант (Окончание функции)
+        return 1
+    return x * factor(x - 1)
+
+print(f'Factorial ot 5! = ', factor(5))
