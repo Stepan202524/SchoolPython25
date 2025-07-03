@@ -1,6 +1,8 @@
 # Анонимные функции (однострочные, безымянные)
 # lambda  <Аргументы>: <выражение>
-words = ['v','etom', 'spiske', 'slova', 'kotoryx']
+
+words = ['v','kotoryx','etom', 'spiske', 'slova']
+print(sorted(words, key=lambda ch: len(ch)))    # Сортировка по длине слова
 
 is_long_six = lambda word: len(word) > 6
 
@@ -26,33 +28,47 @@ ENGLISH_ABC = [chr(ch) for ch in range(ord('a'), ord('z') + 1)]
 RUSS_ABC = [chr(ch) for ch in range(ord('а'), ord('я') + 1)] + ['ё']
 ABC = (set(ENGLISH_ABC) ^ set(RUSS_ABC) ^ set([x.upper() for x in ENGLISH_ABC]) ^ set([x.upper() for x in RUSS_ABC]))
 
-# удаление пунктуации из строки
-text = 'ну и зачем, чтобы, если они.!'       # .lower()   если хотим сделать все маленькие буквы
-text = ''.join(filter(lambda x: x in ABC ^ {' '}, text))
-print(text)
 
-def remov_punct(text):
-    return ''.join(filter(lambda x: x in ABC ^ {' '}, text))
+txt1 = ('Я знаю, что ничего не знаю, по сравнению с другими. Но другие не знают и этого!')
 
-print(remov_punct(text))
+# Считаем частоту слов
+for word in words:
+    if word in d:
+        d[word] += 1
+    else:
+        d[word] = 1
+res = {k: v for k, v in sorted(d.items(), key=lambda item: item[1])}
 
-def get_words(text: str)  -> list:
-    return remov_punct(text).split()
-
-def long_words(text, length=4) -> filter:      # вернёт слова длина которых большеравно 4м
-    return filter(lambda word: len(word) >= length, get_words(text))
-
-print(list(long_words(text)))
-
-# Вывод квадратов чётных чисел в список
-numbers = range(1, 11)
-square = {n: n ** 2 for n in numbers if n % 2 == 0}
-print(square)
-
-source_dict = {
-    'x': 1,
-    'y': 2,
-    'z': 3,
-}
-dest_dict = {k: v * 2 for k, v in source_dict.items()}
-print(dest_dict)
+for k, v in res.items():
+    print(k, v)
+#
+# # удаление пунктуации из строки
+# text = 'ну и зачем, чтобы, если они.!'       # .lower()   если хотим сделать все маленькие буквы
+# text = ''.join(filter(lambda x: x in ABC ^ {' '}, text))
+# print(text)
+#
+# def remov_punct(text):
+#     return ''.join(filter(lambda x: x in ABC ^ {' '}, text))
+#
+# print(remov_punct(text))
+#
+# def get_words(text: str)  -> list:
+#     return remov_punct(text).split()
+#
+# def long_words(text, length=4) -> filter:      # вернёт слова длина которых большеравно 4м
+#     return filter(lambda word: len(word) >= length, get_words(text))
+#
+# print(list(long_words(text)))
+#
+# # Вывод квадратов чётных чисел в список
+# numbers = range(1, 11)
+# square = {n: n ** 2 for n in numbers if n % 2 == 0}
+# print(square)
+#
+# source_dict = {
+#     'x': 1,
+#     'y': 2,
+#     'z': 3,
+# }
+# dest_dict = {k: v * 2 for k, v in source_dict.items()}
+# print(dest_dict)
