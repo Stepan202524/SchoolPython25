@@ -1,74 +1,14 @@
 # Анонимные функции (однострочные, безымянные)
 # lambda  <Аргументы>: <выражение>
+# Ключ сортировки
 
-words = ['v','kotoryx','etom', 'spiske', 'slova']
-print(sorted(words, key=lambda ch: len(ch)))    # Сортировка по длине слова
+words = ['v','etom', 'spiske', 'slova', 'kotoryx']
+# Сортировка по последней букве или s: (s[1], s[-1]) сначала по 1-й потом по последней
+print(sorted(words, key=lambda s: s[-1]))
 
-is_long_six = lambda word: len(word) > 6
-
-if_first_let_a = lambda word: word[0] == 'a'
-
-#def string_contains = lambda s: 'e' in s
-res = list(filter(lambda x: x[0] == 's', words))
-print(res)
-
-res1 = list(filter(lambda s: 'e' in s, words))
-print(res1)
-
-res2 = list(map(lambda y: y ** 2,range(3, 16)))
-num = [3, 4, 5, 6, 7, 8, 9, 10]
-res3 = [y ** 2 for y in num]
-print(res2, '\n',  res3)
-
-long_word = [word for word in words if len(word) > 4]
-print(long_word)
-
-# Создание алфавитов и их объединение
-ENGLISH_ABC = [chr(ch) for ch in range(ord('a'), ord('z') + 1)]
-RUSS_ABC = [chr(ch) for ch in range(ord('а'), ord('я') + 1)] + ['ё']
-ABC = (set(ENGLISH_ABC) ^ set(RUSS_ABC) ^ set([x.upper() for x in ENGLISH_ABC]) ^ set([x.upper() for x in RUSS_ABC]))
-
-
-txt1 = ('Я знаю, что ничего не знаю, по сравнению с другими. Но другие не знают и этого!')
-
-# Считаем частоту слов
-for word in words:
-    if word in d:
-        d[word] += 1
-    else:
-        d[word] = 1
-res = {k: v for k, v in sorted(d.items(), key=lambda item: item[1])}
-
-for k, v in res.items():
-    print(k, v)
-#
-# # удаление пунктуации из строки
-# text = 'ну и зачем, чтобы, если они.!'       # .lower()   если хотим сделать все маленькие буквы
-# text = ''.join(filter(lambda x: x in ABC ^ {' '}, text))
-# print(text)
-#
-# def remov_punct(text):
-#     return ''.join(filter(lambda x: x in ABC ^ {' '}, text))
-#
-# print(remov_punct(text))
-#
-# def get_words(text: str)  -> list:
-#     return remov_punct(text).split()
-#
-# def long_words(text, length=4) -> filter:      # вернёт слова длина которых большеравно 4м
-#     return filter(lambda word: len(word) >= length, get_words(text))
-#
-# print(list(long_words(text)))
-#
-# # Вывод квадратов чётных чисел в список
-# numbers = range(1, 11)
-# square = {n: n ** 2 for n in numbers if n % 2 == 0}
-# print(square)
-#
-# source_dict = {
-#     'x': 1,
-#     'y': 2,
-#     'z': 3,
-# }
-# dest_dict = {k: v * 2 for k, v in source_dict.items()}
-# print(dest_dict)
+goods = [
+    ['Utyug', 1000, 2],
+    ['Fen', 1000, 5],
+    ['Chaynik', 5000, 1]
+]
+print(sorted(goods, key=lambda s: (s[1], s[2], s[0])))   # сортировка по цене, по кол-ву, по имени
