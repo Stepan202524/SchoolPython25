@@ -1,14 +1,18 @@
 # Анонимные функции (однострочные, безымянные)
 # lambda  <Аргументы>: <выражение>
-# проверка коллекций: any(), all()
+# Потоковый ввод sys.stdin
+import sys
 
-# any - любой элемент коллекции вернул True
-# all - все элементы коллекции вернули True
+# for line in sys.stdin:
+#     print(line)
+data = sys.stdin.readlines()
+print(data, [d.strip('\n') for d in data])
+# data1 = [d.strip('\n') for d in data]  # Убираем символы \n
 
-print(all([1, 2, 3]))  # все элементы ненулевые
-print(all([1, 2, 0]))  # один элемент нулевой
-
-# проверка всех слов из списка по длине слов
-words = 'Odin dva tri'.split()
-list_for_ana = list(map(lambda x: len(x) > 3, words))
-print(list_for_ana, all(list_for_ana), any(list_for_ana))
+temp =[]                # индекс строки в date и числа слов в виде кортежей
+for i,s in enumerate(data):
+    temp.append((i, len(s.split())))
+temp.sort(key=lambda x:x[1])
+index = temp[0][0]
+res = sorted(data[index].split())
+print(*res, sep='-')
