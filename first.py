@@ -24,7 +24,7 @@ print(long_word)
 # Создание алфавитов и их объединение
 ENGLISH_ABC = [chr(ch) for ch in range(ord('a'), ord('z') + 1)]
 RUSS_ABC = [chr(ch) for ch in range(ord('а'), ord('я') + 1)] + ['ё']
-ABC = (set(ENGLISH_ABC) ^set(RUSS_ABC) ^ set([x.upper() for x in ENGLISH_ABC]) ^ set([x.upper() for x in RUSS_ABC]))
+ABC = (set(ENGLISH_ABC) ^ set(RUSS_ABC) ^ set([x.upper() for x in ENGLISH_ABC]) ^ set([x.upper() for x in RUSS_ABC]))
 
 # удаление пунктуации из строки
 text = 'ну и зачем, чтобы, если они.!'       # .lower()   если хотим сделать все маленькие буквы
@@ -43,3 +43,16 @@ def long_words(text, length=4) -> filter:      # вернёт слова дли�
     return filter(lambda word: len(word) >= length, get_words(text))
 
 print(list(long_words(text)))
+
+# Вывод квадратов чётных чисел в список
+numbers = range(1, 11)
+square = {n: n ** 2 for n in numbers if n % 2 == 0}
+print(square)
+
+source_dict = {
+    'x': 1,
+    'y': 2,
+    'z': 3,
+}
+dest_dict = {k: v * 2 for k, v in source_dict.items()}
+print(dest_dict)
