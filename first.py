@@ -14,3 +14,8 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+from package1.module import greet       # from package1 import greet   -  когда записана упрощённый импорт
+from package1 import add
+print(greet('Mir!'))
+print(add(3, 8))
