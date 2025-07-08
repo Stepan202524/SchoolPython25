@@ -1,8 +1,14 @@
-res =[]
-with open('info.txt', 'rt') as f:
-    while temp := f.readline():
-        res += temp.split(', ')
-res = list(map(lambda x: x.rstrip('\n'), res))
-#res = set(res)
-res = sorted(int(x) for x in set(res))
-print(res)
+import pprint
+import pickle
+# dic= {
+#     'стол': 'table',
+#     'стул': 'chair',
+#     'дверь': 'door'
+# }
+# # Сериализация
+# with open('dict.dat', 'wb') as p:
+#     pickle.dump(dic, p)
+# Десериализация
+with open('dict.dat', 'rb') as p:
+    d = pickle.load(p)
+pprint.pprint(d, width=11)
