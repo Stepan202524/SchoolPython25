@@ -1,54 +1,30 @@
-# Исключения
-# try:
-#    что пытаемся сделать
-# except:
-#    обрабатываем исключения
-# else:
-#    если исключения не было
-# finally:
-#    выполняется в любом случае
-
-# Бросаемся исключениями - raise
-max_val = 10
-min_val = 1
+# В основном для тестирования ( в prodaction не идёт)
 
 try:
-    val = int(input(f'VVedite celoe chislo ot {min_val} do {max_val}: '))
-    if not min_val < val < max_val:
-        raise ValueError('Vne diapozona')
-    print(f'Chislo {val} lejit v nujnom diapozone')
+    text = input('tekst:')
+    assert len(text) > 3  # утверждение
+except AssertionError:
+    print('Korotkiy text!')
+
+lst= [1, 2, 3, 4, 5, 6, 7, 8, 9]
+try:
+    index = int(input('press index: '))
+    if not -len(lst) < index < len(lst) - 1:
+        raise ValueError('Index vne diapazona')
+    res = lst[index]
+    print(f'Chislo po indexu {index}: {res}')
 except ValueError as exp:
-    print('Vnimatelno: ', exp)
-# print('Ostatok ot deleniya.')
-# loop = True
-# while loop:
-#     try:
-#         value = int(input('Na chto delim 10:'))
-#         res = 10 % value
-#         print(f'Ostatok ot deleniya 10 na {value} = {res}')
-#     except ZeroDivisionError:
-#         print('Nelzya delit na 0!')
-#     except ValueError:
-#         print('Nodo vvodit tolko celye chisla')
-#     except Exception as exp:
-#         print('Proizoshlo iskluchenie -', exp.__class__.__name__, exp)
-#     else:
-#         loop = False
+    print(exp)
 
-
-# flag = False    # открывался ли на запись
-#
-# try:
-#     fo = open('inform.txt', encoding='utf-8')
-#     print(fo.read())
-#     fo.close()
-# except FileNotFoundError:
-#     print('Net takogo fayla')
-#     with open('inform.txt', 'wt', encoding='utf-8') as fo:
-#         fo.write('По умолчанию')
-# else:
-#     print('Fayl otkryt uspeshno. Read & close')
-#     print(fo.read())
-#     fo.close()
-# finally:
-#     print('Rabotaem dal`she')
+while True:
+    a = input('press 1oe chislo:')
+    b = input('press 2oe chislo:')
+    try:
+        result = int(a) / int(b)
+    except ZeroDivisionError:
+        print('Nel`zya delit` na null!')
+    except ValueError:
+        print('Nujno press chislo')
+    else:
+        print(result)
+        break
