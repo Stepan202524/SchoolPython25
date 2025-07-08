@@ -1,17 +1,25 @@
-import pprint
-import pickle
-# dic= {
-#     'стол': 'table',
-#     'стул': 'chair',
-#     'дверь': 'door'
-# }
-# # Сериализация
-# with open('dict.dat', 'wb') as p:
-#     pickle.dump(dic, p)
-# Десериализация
-with open('dict.dat', 'rb') as p:
-    d = pickle.load(p)
-pprint.pprint(d, width=11)
+# Исключения
+# try:
+#    что пытаемся сделать
+# except:
+#    обрабатываем исключения
+# else:
+#    если исключения не было
+# finally:
+#    выполняется в любом случае
+flag = False    # открывался ли на запись
 
-from path_lib import *
-print(img_dir, '\n', font_dir)
+try:
+    fo = open('inform.txt', encoding='utf-8')
+    print(fo.read())
+    fo.close()
+except FileNotFoundError:
+    print('Net takogo fayla')
+    with open('inform.txt', 'wt', encoding='utf-8') as fo:
+        fo.write('По умолчанию')
+else:
+    print('Fayl otkryt uspeshno. Read & close')
+    print(fo.read())
+    fo.close()
+finally:
+    print('Rabotaem dal`she')
