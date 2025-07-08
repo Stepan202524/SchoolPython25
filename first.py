@@ -12,3 +12,6 @@ import pickle
 with open('dict.dat', 'rb') as p:
     d = pickle.load(p)
 pprint.pprint(d, width=11)
+
+from path_lib import *
+print(img_dir, '\n', font_dir)
