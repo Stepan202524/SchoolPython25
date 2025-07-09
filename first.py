@@ -24,7 +24,7 @@ class Greater:
         print('Privet!!', name)
 
     def Bay(self):
-        print('Bay Bay!!')
+        print('Bay Bay!!', '\n')
 
 
 g = Greater()
@@ -33,11 +33,14 @@ g.Bay()
 
 # Методы классов и анализ предыдущих вызовов
 class Car:
+    counter = 0     # статичное свойство (счётчик)
+
     def __init__(self, brand='NoName', model='NoName', color='NoName'):
         self.engine_on = False
         self.brand = brand    # 'Skoda'
         self.model = model    #'Oktavia'
         self.color = color      #'red'
+        Car.counter += 1
 
     def start_engine(self):
         self.engine_on = True
@@ -48,17 +51,26 @@ class Car:
         else:
             print('Ne edem')
 
+    @staticmethod
+    def get_counter():
+        return Car.counter
+
 
 car = Car('BMW', '535i', 'black')
 car.start_engine()
 car.drive_to('gorod')
+car1 = Car()
+car2 = Car()
+print('В парке машин:', Car.get_counter(), '\n')
 
 # Геттеры и сеттеры
 class Person:
+
     def __init__(self, name='Bill', age=11):
         # свойства (поля) класса
         self._name = name
         self._age = age
+
     # setters
     def set_name(self, new_name):
         if new_name:
