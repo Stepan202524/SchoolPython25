@@ -37,17 +37,38 @@ class Car:
 
     def __init__(self, brand='NoName', model='NoName', color='NoName'):
         self.engine_on = False
-        self.brand = brand    # 'Skoda'
-        self.model = model    #'Oktavia'
-        self.color = color      #'red'
+        self._brand = brand    # 'Skoda'
+        self._model = model    #'Oktavia'
+        self._color = color      #'red'
         Car.counter += 1
+
+    def set_brand(self, new_brand):
+        if new_brand:
+            self._brand = new_brand
+
+    def set_model(self, new_model):
+        if new_model:
+            self._model = new_model
+
+    def set_color(self, new_color):
+        if new_color:
+            self._color = new_color
+
+    def get_brand(self):
+        return self._brand
+
+    def get_model(self):
+        return self._model
+
+    def get_color(self):
+        return self._color
 
     def start_engine(self):
         self.engine_on = True
 
     def drive_to(self, place):
         if self.engine_on:
-            print(f'Edem v {place} na {self.brand} {self.model} {self.color}')
+            print(f'Edem v {place} na {self._brand} {self._model} {self._color}')
         else:
             print('Ne edem')
 
@@ -96,3 +117,23 @@ p = Person()
 p.set_age(111)
 p.person_info()
 print(p.get_name(), 'emu stol`ko let', p.get_age())
+
+class Clicker:
+    def __init__(self):
+        self._counter1 = 0
+
+    def click(self):
+        self._counter1 += 1
+
+    def get_counter1(self):
+        return self._counter1
+
+    def reset(self):
+        self._counter1 = 0
+
+cl = Clicker()
+cl.click()
+cl.click()
+print('\n', cl.get_counter1())
+cl.reset()
+print(cl.get_counter1())
