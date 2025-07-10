@@ -1,35 +1,87 @@
-# OOP (специальные методы)  magic methods
-# method override, operator overloading
+# OOP (inheritance) - Наследование
+# класс, от которого наследуем: Базовый, Родительский, Суперкласс
+# класс, который наследуется: Производный, Дочерний
 
-class MyTime:
-    def __init__(self, minutes, seconds):
-        if 0 <= minutes < 60:
-            self.minutes = minutes
-        if 0 <+ seconds < 60:
-            self.seconds = seconds
+# Абстрактный класс, информирующий какой подкласс используется
+class Shape:
+    def info(self):
+        print(f'Klass: {self.__class__.__name__}')
 
-    def __str__(self):
-        return f'Minute {self.minutes:02}: Seconds {self.seconds:02}'
+    def area(self):
+        pass
 
-    def __add__(self, other):
-        return f'Minut {self.minutes + other.minutes} : Secund {self.seconds + other.seconds}'
+    def perimetr(self):
+        pass
 
-t1 = MyTime(18, 55)
-t2 = MyTime(22,4)
-print(t1, '\t', t2)
-print(f'Summa vremeny = ', t1 + t2)
-#############
+# Фигуры
+from math import pi
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+        self.name = 'Krug'
 
-# __call__ - экземпляр класса вызываем как функцию
-# y = ax^2 + bx + c
-class SquareFunc:
-    def __init__(self, a, b, c):
-        self.a = a
-        self.b = b
-        self.c = c
+    def perimetr(self):
+        return round(2 * pi * self.radius, 3)
 
-    def __call__(self, x):
-        return self.a * x ** 2 + self.b * x + self.c
+    def area(self):
+        return round(pi * self.radius ** 2, 3)
 
-s = SquareFunc(1, 2, 3)
-print(f'Uravnenue: y = ax^2 + bx + c = ', s(2))
+    def get_name(self):
+        return self.name
+
+
+class Rectangle(Shape):
+    def __init__(self, side1, side2):
+        self.side1 = side1
+        self.side2 = side2
+        self.name = 'Pryamougolnik'
+
+    def perimetr(self):
+        return  self.side1 + self.side2
+
+    def area(self):
+        return self.side1 * self.side2
+
+    def get_name(self):
+        return self.name
+
+class Square(Rectangle):
+    def __init__(self, side):
+        super().__init__(side, side)
+    #   self.side = side
+        self.name = 'квадрат'
+
+    # def perimetr(self):
+    #     return 4 * self.side
+    #
+    # def area(self):
+    #     return self.side ** 2
+    #
+    # def get_name(self):
+    #     return self.name
+
+class Triangle(Square):
+    def __init__(self, side):
+        super().__init__(side)
+        self.side = side
+        self.name = 'Треугольник'
+
+    def area(self):
+        return (self.side ** 2 * 3 ** 0.5) / 4
+
+    def perimetr(self):
+        return self.side * 3
+
+
+s = Square(5)
+print(s.get_name())
+print(s.area(), '\t', s.perimetr())
+s.info()
+c = Circle(4)
+print(c.get_name())
+print(c.area(), '\t', c.perimetr())
+c.info()
+tr = Triangle(6)
+print(tr.get_name())
+print(tr.area(), '\t', tr.perimetr())
+tr.info()
