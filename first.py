@@ -1,27 +1,35 @@
 # OOP (специальные методы)  magic methods
 # method override, operator overloading
-import math
-from math import hypot
 
-class Point:
-    def __init__(self, x=0, y=0):
-        self.x = x
-        self.y = y
+class MyTime:
+    def __init__(self, minutes, seconds):
+        if 0 <= minutes < 60:
+            self.minutes = minutes
+        if 0 <+ seconds < 60:
+            self.seconds = seconds
+
     def __str__(self):
-        return f'<Point: ({self.x}, {self.y})>'
-    def __repr__(self):
-        return f'<List Point: ({self.x}, {self.y})>'
-    def __sub__(self, other):
-        return (self.x - other.x, self.y - other.y)
-      #  return Point(abs(self.x - other.x), abs(self.y - other.y))  Абсолютные значения
+        return f'Minute {self.minutes:02}: Seconds {self.seconds:02}'
+
     def __add__(self, other):
-        return math.hypot(abs(self.x - other.x), abs(self.y - other.y))
+        return f'Minut {self.minutes + other.minutes} : Secund {self.seconds + other.seconds}'
 
+t1 = MyTime(18, 55)
+t2 = MyTime(22,4)
+print(t1, '\t', t2)
+print(f'Summa vremeny = ', t1 + t2)
+#############
 
-p = Point()
-p1 = [Point(), Point()]
-p2 = Point(5, 8)
-p3 = Point(12, 15)
-print(p, '\n', p1)
-print(f'Raznica koordinat: ', p2 - p3)
-print(f'Gipotinuza: ', p2 + p3)
+# __call__ - экземпляр класса вызываем как функцию
+# y = ax^2 + bx + c
+class SquareFunc:
+    def __init__(self, a, b, c):
+        self.a = a
+        self.b = b
+        self.c = c
+
+    def __call__(self, x):
+        return self.a * x ** 2 + self.b * x + self.c
+
+s = SquareFunc(1, 2, 3)
+print(f'Uravnenue: y = ax^2 + bx + c = ', s(2))
