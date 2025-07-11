@@ -1,27 +1,17 @@
+# Периодические задачи
+import datetime
+import schedule
 
-class BankAcc:
-    def __init__(self, own, bal=0):
-        self._own = own
-        self._bal = bal
+i = 1
 
-    def get_bal(self):
-        return self._bal
+def job():
+    global  i
+    print(f'Skript zapustilsyz {i} - raz')
+    i += 1
+    t = datetime.datetime.now()
+    print('Vremya', t.strftime('%H:%M:%S'))
 
-    def deposit(self, amount):
-        if amount > 0:
-            self._bal += amount
-            print(f'Popolnenie na : {amount}')
-        else:
-            print(f'Nel`zya vnesti otricatelnuyu summu')
+schedule.every(5).seconds.do(job)
 
-    def withdr(self, amount):
-        if 0 < amount <= self._bal:
-            self._bal -= amount
-            print(f'Snyato : {amount}')
-        else:
-            print(f'!Nedostatochno sredst na chetu!')
-
-client1 = BankAcc('Petr')
-client1.deposit(500)
-client1.withdr(400)
-print('Ostatok: ', client1.get_bal())
+while True:
+    schedule.run_pending()
