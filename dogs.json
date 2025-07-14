@@ -1,0 +1,14 @@
+[
+  {
+  "name": "Muhtar",
+  "photo": "foto.jpg",
+  "age": 8,
+  "meals": ["Purina", "Pedigree"]
+  },
+  {
+  "name": "Bob",
+  "photo": "foto1.jpg",
+  "age": 11,
+  "meals": ["Purina", "Pedigree", "Hills"]
+  }
+]
