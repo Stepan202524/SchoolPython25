@@ -1,36 +1,35 @@
-# JSON - (Java Script Object Notation)
-# Для чтения load() - читает из файла
-#           loads() - читает строковое представление
-import json
+# Базы данных (чтение)
+"""
+1. Импорт библиотеки sqlite3
+2. Подключаемся к БД
+3. Назначить курсор
+4. Работа с БД (запросы ответы)
+5. Отключаем БД
+"""
+import sqlite3
 
-with open('dogs.json', 'rt') as d:
-#    data = json.load(d)        # Напрямую из файла
-    temp = d.read()             # Читаем файл как строку
-    data = json.loads(temp)     # строковое представление JSON
-for i in range(len(data)):
-    print(f'Pitomec #{i + 1}')
-    for a, b in data[i].items():
-        if type(b) == list:
-            print(f'\t{a}: {','.join(b)}')
-        else:
-            print(f'{a}: {b}')
-# Для одного питомца вывод
-# for a, b in data.items():
-#     if type(b)  == list:
-#         print(f'{a}: {','.join(b)}')
-#     else:
-#         print(f'{a}: {b}')
-print(data)
-# Записываем словарь в файл JSON
-d = {
-    'ананас': 300,
-    'банан': 400,
-    'яблоко': 150,
-    'груша': 250,
-}
-# Напрямую в файл
-# with open('fruits.json', 'w', encoding='utf-8') as f:
-#     json.dump(d, f, indent=4)
+connection = sqlite3.connect('db/movies.sqlite')
+cursor = connection.cursor()
+result = cursor.execute(
+    """
+    select title, year from films where year = 2010
+    """
+)
+# fetchall - Всё    fetchone - Только первое соответствие   fetchmany(N) - N-соответствий
+array = result.fetchall()
+print(array)
+for title, year in array:
+    print(title, year)
+connection.close()
 
-# Вывод в виде строки
-print(json.dumps(d, indent=4))
+# Запись в БД
+# 4.5 Подтвердить изменения (commit)
+connection = sqlite3.connect('db/movies.sqlite')
+cursor = connection.cursor()
+result = cursor.execute(
+    """
+    insert into users(name, age) values('Marks', 55)
+    """
+)
+connection.commit()
+connection.close()
