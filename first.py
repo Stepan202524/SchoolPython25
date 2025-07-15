@@ -1,30 +1,51 @@
 # Декораторы
-def upper_case_print(old_func):
-    def new_func(*args, **kwargs):
-        case = kwargs.pop('case', None)
-        if case == 'U':
-            args = [str(arg).upper() for arg in args]
-        elif case == 'L':
-            args = [str(arg).lower() for arg in args]
-        return old_func(*args, **kwargs)
-    return new_func
 
-new_print = upper_case_print(print)
-new_print('Privet, Poka')
-new_print('PRIVet, pOKA', case='L')
+def outer():
+    x = 5
 
-# def answer(question):
-#     return 'Dumay!'
-#
-# def dialog():
-#     def answer(question):
-#         if question.lower().startswith('kogda'):
-#             return 'nikogda'
-#         else:
-#             return 'Upppss'
-#     question = input()
-#     while question != '':
-#         print(answer(question))
-#         question = input()
-#
-# dialog()
+    def inner():
+        nonlocal x
+        print('NonLocal x=', x)
+        x= 10
+    inner()
+    print('New x=', x)
+outer()
+
+def logger(func):
+    counter = 0
+    def decor_func(*args, **kwargs):
+        nonlocal counter
+        counter += 1
+        print(counter, '->', 'Argumenty: ', args, 'Imenovan argumenty: ', kwargs)
+        result = func(*args, **kwargs)
+        print('____', 'REsult: ', result)
+        return result
+    return decor_func()
+
+@logger
+def make_burger(meal='Pork', onion=False, tomat=False):
+    print('Bulochka')
+    if onion:
+        print('LookLook')
+    print('Kotleta s', meal)
+    if tomat:
+        print('Tomat`s')
+
+make_burger(onion=True)
+
+import time
+
+def timeit(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        resultat = func(*args, **kwargs)
+        finish = time.time()
+        print(f'Выполнялась: {finish - start:.4f} sek.')
+        return resultat
+    return wrapper
+
+@timeit
+def test():
+    time.sleep(0.8)
+
+test()
