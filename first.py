@@ -1,48 +1,31 @@
-import sqlite3
-from venv import create
+# Погода через API
+import requests
+from PIL import Image
+import io
 
+API_KEY = '087a95ccd5be51143083f162cdf078d3'
+URL = 'http://api.openweathermap.org/data/2.5/weather'
+CITY = 'Выборг'
+params = {
+    'q': CITY,
+    'appid': API_KEY,
+    'units': 'metric',
+    'lang': 'ru'
+}
+response = requests.get(URL, params=params)
+result = response.json()
 
-class Crud:
-    def __init__(self, db_path):
-        self._conn = sqlite3.connect(db_path)
-        self._cur = self._conn.cursor()
+weather = result['weather'][0]['description']
+temper = result['main']['temp']
+humid = result['main']['humidity']
+wind = result['wind']['speed']
+data = result['coord']
+ll = f'{data['lon']}, {data['lat']}'
 
-    def create(self,table_name, name, age):
-        res = self._cur.execute(
-            f'insert into {table_name}(name, age) values (?, ?)'
-            ,(name, int(age))
-        )
-        self._conn.commit()
-
-# Метод чтения таблицы
-    def read(self, table_name):
-        res = self._cur.execute(
-             f""" select * from {table_name}"""
-        ).fetchall()
-        for num, name, age in res:
-            print(num, name, age)
-
-    def update(self, table_name, id_num, name=None, age=None):
-        self._cur.execute(
-            f'update {table_name} set name="{name}", age={age} where id={id_num}'
-        )
-        self._conn.commit()
-
-# Метод удаления строки по id из таблицы
-    def delete(self, id_num, table_name):
-        res = self._cur.execute(
-            f'delete from {table_name} where id={id_num}'
-        )
-        self._conn.commit()
-
-# Отключаем курсор и БД (уничтожение объекта из памяти)
-    def __del__(self):
-        self._cur.close()
-        self._conn.close()
-        print('Object kills')
-
-db = Crud('db/movies.sqlite')
-# db.delete(3, 'users')
-db.create('users', 'Dima', 18)
-db.update('users', 8, 'Kostya', 44 )
-db.read('users')
+print(f'Koordinates: {ll}')
+print(f'Segodnya v gorode {CITY}: {weather}', '\t', f'Temper: {temper:1f}', '\n', f'Vlajnost: {humid}%', '\t',
+      f'Speed: {wind} M/C')
+link = f'https://static-maps.yandex.ru/1.x/?ll={ll}&spn=0.0025,0.0025&l=map&pt={ll},pm2dgl'
+image = requests.get(link).content
+if image:
+    Image.open(io.BytesIO(image)).show()
