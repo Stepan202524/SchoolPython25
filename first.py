@@ -7,29 +7,41 @@
 5. Отключаем БД
 """
 import sqlite3
+import csv
 
 connection = sqlite3.connect('db/movies.sqlite')
 cursor = connection.cursor()
-result = cursor.execute(
-    """
-    select title, year from films where year = 2010
-    """
-)
-# fetchall - Всё    fetchone - Только первое соответствие   fetchmany(N) - N-соответствий
-array = result.fetchall()
-print(array)
-for title, year in array:
-    print(title, year)
-connection.close()
+# Добавляем из csv-файла
+with open('people.csv', 'r', encoding='utf=8') as f:
+    reader = csv.reader(f, delimiter=',')
+    next(reader)    # Пропустить первую строку
+    for name, age in reader:
+        cursor.execute(
+            """
+            insert into users(name, age) values(?,?)
+            """, (name, int(age))
+        )
+
+# result = cursor.execute(
+#     """
+#     select title, year from films where year = 2010
+#     """
+# )
+# # fetchall - Всё    fetchone - Только первое соответствие   fetchmany(N) - N-соответствий
+# array = result.fetchall()
+# print(array)
+# for title, year in array:
+#     print(title, year)
+# connection.close()
 
 # Запись в БД
 # 4.5 Подтвердить изменения (commit)
-connection = sqlite3.connect('db/movies.sqlite')
-cursor = connection.cursor()
-result = cursor.execute(
-    """
-    insert into users(name, age) values('Marks', 55)
-    """
-)
+# connection = sqlite3.connect('db/movies.sqlite')
+# cursor = connection.cursor()
+# result = cursor.execute(
+#     """
+#     insert into users(name, age) values('Marks', 55)
+#     """
+# )
 connection.commit()
 connection.close()
