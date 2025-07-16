@@ -1,7 +1,7 @@
 # Flask
 # MVC - (Model View Controller)
 from fileinput import filename
-
+import sqlite3
 from flask import Flask, url_for
 
 app = Flask(__name__)
@@ -40,6 +40,44 @@ def sample_page():
         </body>
         </html>
     """
+
+@app.route('/sample-page2')
+def sample_page2():
+    with open('temp.html', 'r', encoding='utf-8') as html:
+        return html.read()
+
+# Конвертор: <string> -по умолчанию строка  <int:number> -целое число  <float:number> -дес. дробь
+#           <path:p> -может содержать слэши для указания пути
+#           <uuid:id> - строка идентификатор (16-байт в HEX-формате)
+@app.route('/greeting/<user>/<int:id_num>')
+def greeting(user, id_num):
+    return f'Privet, {user}, s takim vot id= {id_num}'
+
+# Подгружаем БД и вытаскиваем строку по номеру
+@app.route('/get-user/<int:id_num>')
+def get_user(id_num):
+    con = sqlite3.connect('db/movies.sqlite')
+    cur = con.cursor()
+    query = f'SELECT name, city FROM users WHERE trip_id={id_num}'
+    response = cur.execute(query)
+    result = response.fetchone()
+    print(result)
+    name, city = result
+    cur.close()
+    con.close()
+    # return str(result[0])
+    return f'''
+    <table border=1>
+    <tr>
+    <td>FIO</td>
+    <td>Gorod</td>
+    </tr>
+    <tr>
+    <td>{name}</td>
+    <td>{city}</td>
+    </tr>
+    </table>
+'''
 
 if __name__ == '__main__':
     app.run(host='localhost', port=5000)
