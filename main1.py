@@ -54,8 +54,11 @@ def greeting(user, id_num):
     return f'Privet, {user}, s takim vot id= {id_num}'
 
 # Подгружаем БД и вытаскиваем строку по номеру
+@app.route('/ger-user/')        # Пустой параметр
 @app.route('/get-user/<int:id_num>')
-def get_user(id_num):
+def get_user(id_num=None):
+    if id_num is None:
+        return f'Net zaprosa nomera'
     con = sqlite3.connect('db/movies.sqlite')
     cur = con.cursor()
     query = f'SELECT name, city FROM users WHERE trip_id={id_num}'
