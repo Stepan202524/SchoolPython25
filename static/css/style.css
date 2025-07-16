@@ -1,0 +1,14 @@
+h1 {
+    color: #d22e34;
+    text-align: center;
+}
+
+form.login_form {
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: grey;
+    padding: 10px;
+    border: 4px solid pink;
+    border-radius: 10px;
+}

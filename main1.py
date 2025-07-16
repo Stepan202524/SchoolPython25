@@ -1,8 +1,14 @@
 # Flask
 # MVC - (Model View Controller)
+# GET - запрашивает данные (read)
+# POSt - отправляет данные на сервер (submit)
+# PUT - принудительно заменяет всё на сервере из контекста запроса (заменить)
+# DELETE - удаляет указанные данные
+# PATCH - частичное изменение данных
+
 from fileinput import filename
 import sqlite3
-from flask import Flask, url_for
+from flask import Flask, url_for, request
 
 app = Flask(__name__)
 @app.route('/')
@@ -81,6 +87,20 @@ def get_user(id_num=None):
     </tr>
     </table>
 '''
+
+@app.route('/form-test', methods=['POST', 'GET'])
+def form_test():
+    if request.method == 'GET':
+        with open('form.html', 'r', encoding='utf-8') as html:
+            return html.read()
+    elif request.method == 'POST':
+        print(request.form['gender'])
+        print(request.form['email'])
+        print(request.form['about'])
+        print(request.form['level'])
+        print(request.form['password'])
+        print(request.form['accept'])
+        return 'Forma otpravlena'
 
 if __name__ == '__main__':
     app.run(host='localhost', port=5000)
