@@ -7,10 +7,17 @@
 # PATCH - частичное изменение данных
 
 from fileinput import filename
-import sqlite3
+import sqlite3, os
 from flask import Flask, url_for, request
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'uploads/'
+ALLOWED_EXTENSIONS = ['txt', 'pdf', 'zip', 'jpg', 'png']
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -101,6 +108,27 @@ def form_test():
         print(request.form['password'])
         print(request.form['accept'])
         return 'Forma otpravlena'
+
+@app.route('/upload', methods=['POST', 'GET'])
+def file_upload():
+    if request.method == 'GET':
+        with open('upload.html', 'r', encoding='utf-8') as html:
+            return html.read()
+    elif request.method == 'POST':
+        if 'file' not in request.files:
+            return 'File not choose!'
+
+        file = request.files['file']
+
+        if file.filename == '':
+            return 'File bez imeny'
+
+        if file and allowed_file(file.filename):
+            new_name = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], new_name))
+            return f'YES!! File {new_name} success upload'
+    return 'Error upload'
+
 
 if __name__ == '__main__':
     app.run(host='localhost', port=5000)
