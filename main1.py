@@ -8,7 +8,7 @@
 
 #JINJA - переменные, условия, циклы и т.д.
 
-#ORM - Object Relational Mapping ()
+#ORM - Object Relational Mapping (Объектно-реляционное отображение)
 
 from fileinput import filename
 import sqlite3, os.path
@@ -16,6 +16,7 @@ from flask import Flask, url_for, request, render_template
 from openpyxl.styles.builtins import title
 from werkzeug.utils import secure_filename
 from forms.loginform import LoginForm
+from data import db_session
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads/'
@@ -181,4 +182,5 @@ def queue():
     return render_template('vars.html', title='Stoim v ogheredi')
 
 if __name__ == '__main__':
+    db_session.global_init('db/news.sqlite')
     app.run(host='localhost', port=5000)
