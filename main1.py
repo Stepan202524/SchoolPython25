@@ -27,14 +27,26 @@ def index():
 #    username = 'Slushatel'
     params = {}
     params['user'] = 'Slushatel'
-    params['title'] = 'Privetstvie'
+    params['title'] = 'Privetstvuyu'
     params['weath'] = 'Good day'
 #    return render_template('index.html', title='Privetstvie', user=username)
     return render_template('index1.html', **params)
+
+@app.route('/glavnaya')
+def glavnaya():
+    print('Funkciya glavnaya')
+    return f'My est` - Korovnik!'
+
 @app.route('/about')
 def about():
     print('Funkciya about')
-    return 'O nas'
+   # return 'Luchshe o Vas!'
+    return render_template('about1.html', title='Pro nas')
+
+@app.route('/contacts')
+def contacts():
+    print('Funkciya contact')
+    return 'Pishite na derevnyu Dedushke!'
 
 @app.route('/countdown')
 def cd():

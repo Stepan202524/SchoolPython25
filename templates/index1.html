@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{title}}</title>
-</head>
-<body>
-<h1>Privet, {{user}}</h1>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{title}}, {{user}}</h1>
 <p>{{weath}}</p>
-</body>
-</html>
+{% endblock %}
