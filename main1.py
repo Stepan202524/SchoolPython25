@@ -79,7 +79,7 @@ def greeting(user, id_num):
 @app.route('/get-user/<int:id_num>')
 def get_user(id_num=None):
     if id_num is None:
-        return f'Net zaprosa nomera'
+        return f'Net zaprosa nomera'    # '<a href="https://localhost:5000/get-user/{id_num}">FIO</a>
     con = sqlite3.connect('db/movies.sqlite')
     cur = con.cursor()
     query = f'SELECT name, city FROM users WHERE trip_id={id_num}'
@@ -137,9 +137,12 @@ def file_upload():
             return f'YES!! File {new_name} success upload'
     return 'Error upload'
 
-@app.route('/numbers')
-def odd_even():
-    return render_template('numbers.html', title='Чёт-нечет', number=7)
+@app.route('/numbers/')
+@app.route('/numbers/<int:number>')
+def odd_even(number=None):
+    if number is None:
+        return render_template('numbers.html', title='Enter Chislo!', number=None)
+    return render_template('numbers.html', title='Чёт-нечет', number=number)
 
 @app.route('/deals')
 def printlist():
