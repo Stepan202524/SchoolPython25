@@ -6,9 +6,12 @@
 # DELETE - удаляет указанные данные
 # PATCH - частичное изменение данных
 
+#JINJA - переменные, условия, циклы и т.д.
+
 from fileinput import filename
-import sqlite3, os
-from flask import Flask, url_for, request
+import sqlite3, os.path
+from flask import Flask, url_for, request, render_template
+from openpyxl.styles.builtins import title
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -21,8 +24,13 @@ def allowed_file(filename):
 @app.route('/')
 @app.route('/index')
 def index():
-    return 'Privet, Flask'
-
+#    username = 'Slushatel'
+    params = {}
+    params['user'] = 'Slushatel'
+    params['title'] = 'Privetstvie'
+    params['weath'] = 'Good day'
+#    return render_template('index.html', title='Privetstvie', user=username)
+    return render_template('index1.html', **params)
 @app.route('/about')
 def about():
     print('Funkciya about')
@@ -129,6 +137,21 @@ def file_upload():
             return f'YES!! File {new_name} success upload'
     return 'Error upload'
 
+@app.route('/numbers')
+def odd_even():
+    return render_template('numbers.html', title='Чёт-нечет', number=7)
+
+@app.route('/deals')
+def printlist():
+    deal = ['Posuda', 'Schetckiki', 'Magaz', 'Sobaka']
+    return  render_template('printlist.html', deals=deal)
+
+@app.route('/queue')
+def queue():
+    # loop.index - номер итерации, начиная с 1
+    # loop.index0 - номер итерации, начиная с 0
+    # loop.first - True, если первая итерация (.last) - последняя итерация
+    return render_template('vars.html', title='Stoim v ogheredi')
 
 if __name__ == '__main__':
     app.run(host='localhost', port=5000)
