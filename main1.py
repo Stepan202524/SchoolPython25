@@ -13,9 +13,11 @@ import sqlite3, os.path
 from flask import Flask, url_for, request, render_template
 from openpyxl.styles.builtins import title
 from werkzeug.utils import secure_filename
+from forms.loginform import LoginForm
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads/'
+app.config['SECRET_KEY'] = 'just_secret_key'
 ALLOWED_EXTENSIONS = ['txt', 'pdf', 'zip', 'jpg', 'png']
 
 def allowed_file(filename):
@@ -47,6 +49,14 @@ def about():
 def contacts():
     print('Funkciya contact')
     return 'Pishite na derevnyu Dedushke!'
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        return 'Forma send'
+    return render_template('login.html', title='Autorization', form=form)
+
 
 @app.route('/countdown')
 def cd():
