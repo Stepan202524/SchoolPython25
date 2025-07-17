@@ -8,6 +8,8 @@
 
 #JINJA - переменные, условия, циклы и т.д.
 
+#ORM - Object Relational Mapping ()
+
 from fileinput import filename
 import sqlite3, os.path
 from flask import Flask, url_for, request, render_template
@@ -55,7 +57,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         return 'Forma send'
-    return render_template('login.html', title='Autorization', form=form)
+    return render_template('login.html', title='Authorization', form=form)
 
 
 @app.route('/countdown')
