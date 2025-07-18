@@ -26,6 +26,10 @@ ALLOWED_EXTENSIONS = ['txt', 'pdf', 'zip', 'jpg', 'png']
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html', title='Ne naydeno')
+
 @app.route('/')
 @app.route('/index')
 def index():
