@@ -12,10 +12,12 @@
 
 from fileinput import filename
 import sqlite3, os.path
-from flask import Flask, url_for, request, render_template
+from flask import Flask, url_for, request, render_template, redirect
 from openpyxl.styles.builtins import title
+from pyexpat.errors import messages
 from werkzeug.utils import secure_filename
 from forms.loginform import LoginForm
+from forms.user import Register
 from data import db_session
 from data.users import User
 from data.news import News
@@ -66,6 +68,26 @@ def login():
         return 'Forma send'
     return render_template('login.html', title='Authorization', form=form)
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = Register()
+    if form.validate_on_submit():       # тоже самое что и request.method == 'POST'
+        # Если пароли не совпали
+        if form.password.data != form.password_again.data:
+            return render_template('register.html', title='Registration',
+                                   message='Paroli ne sovpadayut', form=form)
+        db_sess = db_session.create_session()
+        # Если пользователь с таким email уже есть
+        if db_sess.query(User).filter(User.email==form.email.data).first():
+            return render_template('register.html', title='Registration',
+                                       message='Takoy polzovatel` uje est`', form=form)
+
+        user = User(name=form.name.data, email=form.email.data, about=form.about.data)
+        user.set_password(form.password.data)
+        db_sess.add(user)
+        db_sess.commit()
+        return redirect('/login')
+    return render_template('register.html', title='Registration', form=form)
 
 @app.route('/countdown')
 def cd():
