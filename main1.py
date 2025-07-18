@@ -189,10 +189,14 @@ def queue():
 if __name__ == '__main__':
     db_session.global_init('db/news.sqlite')
     app.run(host='localhost', port=5000)
+
     user = User()
-    user.name = 'User1'
-    user.about = 'Dannye ob User1'
-    user.email = 'gdfs@gsd.com'
     db_sess = db_session.create_session()
-    db_sess.add(user)
-    db_sess.commit()
+    first = db_sess.query(User).filter(User.id > 1).all() # .first() - первая строка  .all() -все строки
+    print(first)
+    # user.name = 'User1'
+    # user.about = 'Dannye ob User1'
+    # user.email = 'gdfs@gsd.com'
+    # db_sess = db_session.create_session()
+    # db_sess.add(user)
+    # db_sess.commit()
