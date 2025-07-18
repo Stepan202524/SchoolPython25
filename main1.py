@@ -18,6 +18,7 @@ from werkzeug.utils import secure_filename
 from forms.loginform import LoginForm
 from data import db_session
 from data.users import User
+from data.news import News
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads/'
@@ -186,17 +187,24 @@ def queue():
     # loop.first - True, если первая итерация (.last) - последняя итерация
     return render_template('vars.html', title='Stoim v ogheredi')
 
+@app.route('/news')
+def news():
+    db_sess = db_session.create_session()
+    all_news = db_sess.query(News).filter(News.is_private != True).all()
+    print(all_news)
+    return render_template('news.html', title='Novosti', news=all_news)
+
 if __name__ == '__main__':
     db_session.global_init('db/news.sqlite')
     app.run(host='localhost', port=5000)
 
-    user = User()
-    db_sess = db_session.create_session()
-    first = db_sess.query(User).filter(User.id > 1).all() # .first() - первая строка  .all() -все строки
-    print(first)
-    # user.name = 'User1'
-    # user.about = 'Dannye ob User1'
-    # user.email = 'gdfs@gsd.com'
+    # news = News()
+    # # db_sess = db_session.create_session()
+    # # first = db_sess.query(User).filter(User.id > 1).all() # .first() - первая строка  .all() -все строки
+    # # print(first)
+    # news.name = 'User2'
+    # news.title = 'Dannye321 ob User1'
+    # news.content = 'Abra4314Cadabra'
     # db_sess = db_session.create_session()
-    # db_sess.add(user)
+    # db_sess.add(news)
     # db_sess.commit()
