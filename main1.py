@@ -21,7 +21,7 @@ from forms.user import Register
 from data import db_session
 from data.users import User
 from data.news import News
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, logout_user
 
 app = Flask(__name__)
 
@@ -104,6 +104,11 @@ def register():
         db_sess.commit()
         return redirect('/login')
     return render_template('register.html', title='Registration', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect('/')
 
 @app.route('/countdown')
 def cd():

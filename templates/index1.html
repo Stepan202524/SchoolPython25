@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+{% if current_user.is_authenticated %}
 <h1>{{title}}, {{user}}</h1>
 <p>{{weath}}</p>
+{% else %}
+<h1>{{title}}, {{user}}</h1>
+<p>{{weath}}</p>
+<p></p>
+<h2>Snachala authorization</h2>
+{% endif %}
 {% endblock %}
