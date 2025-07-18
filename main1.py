@@ -21,14 +21,24 @@ from forms.user import Register
 from data import db_session
 from data.users import User
 from data.news import News
+from flask_login import LoginManager, login_user
 
 app = Flask(__name__)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 app.config['SECRET_KEY'] = 'just_secret_key'
 ALLOWED_EXTENSIONS = ['txt', 'pdf', 'zip', 'jpg', 'png']
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@login_manager.user_loader
+def load_user(user_id):
+    db_sess = db_session.create_session()
+    return db_sess.query(User).get(user_id)
 
 @app.errorhandler(404)
 def not_found(e):
@@ -65,7 +75,13 @@ def contacts():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        return 'Forma send'
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.email == form.email.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            return redirect('/')
+        return render_template('login.html', message='Nevernyi login ili parol`',
+                               title='Error authorization', form=form)
     return render_template('login.html', title='Authorization', form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
