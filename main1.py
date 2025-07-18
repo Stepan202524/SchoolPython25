@@ -17,6 +17,7 @@ from openpyxl.styles.builtins import title
 from werkzeug.utils import secure_filename
 from forms.loginform import LoginForm
 from data import db_session
+from data.users import User
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads/'
@@ -188,3 +189,10 @@ def queue():
 if __name__ == '__main__':
     db_session.global_init('db/news.sqlite')
     app.run(host='localhost', port=5000)
+    user = User()
+    user.name = 'User1'
+    user.about = 'Dannye ob User1'
+    user.email = 'gdfs@gsd.com'
+    db_sess = db_session.create_session()
+    db_sess.add(user)
+    db_sess.commit()
