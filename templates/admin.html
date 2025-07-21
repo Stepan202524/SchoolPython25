@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Сообщения пользователей</h1>
+<table>
+    <tr>
+        <th>№</th>
+        <th>Zagolovok</th>
+        <th>Tekst novosti</th>
+        <th>&nbsp</th>
+    </tr>
+    {% for item in news %}
+    <tr>
+        <td>{{loop.index}}</td>
+        <td>{{loop.title}}</td>
+        <td>{{loop.content}}</td>
+        <td>
+        <a href="/newsdel/{{item.id}}" class="btn btn-danger btn-sm">Удалить</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

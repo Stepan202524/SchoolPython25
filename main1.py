@@ -9,19 +9,29 @@
 #JINJA - переменные, условия, циклы и т.д.
 
 #ORM - Object Relational Mapping (Объектно-реляционное отображение)
+# SOA - Service Oriented Architecture
+# MSA - Micro Service Architecture
+# REST - Representation State Transfer
+# GET - /book/page/50   - посмотреть страницу 50
+# GET - /book           - увидеть список всех книг
+# POST - /book
+# DELETE - /book/7
 
 from fileinput import filename
 import sqlite3, os.path
-from flask import Flask, url_for, request, render_template, redirect
+
+import requests
+from flask import Flask, url_for, request, render_template, redirect, abort
 from openpyxl.styles.builtins import title
 from pyexpat.errors import messages
 from werkzeug.utils import secure_filename
 from forms.loginform import LoginForm
+from forms.news import NewsForm
 from forms.user import Register
-from data import db_session
+from data import db_session, news_api
 from data.users import User
 from data.news import News
-from flask_login import LoginManager, login_user, logout_user
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 
 app = Flask(__name__)
 
@@ -44,6 +54,10 @@ def load_user(user_id):
 def not_found(e):
     return render_template('404.html', title='Ne naydeno')
 
+@app.errorhandler(401)
+def not_authorized(_):
+    return redirect('/login')
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -61,6 +75,7 @@ def glavnaya():
     return f'My est` - Korovnik!'
 
 @app.route('/about')
+@login_required
 def about():
     print('Funkciya about')
    # return 'Luchshe o Vas!'
@@ -106,6 +121,7 @@ def register():
     return render_template('register.html', title='Registration', form=form)
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect('/')
@@ -233,12 +249,85 @@ def queue():
 @app.route('/news')
 def news():
     db_sess = db_session.create_session()
-    all_news = db_sess.query(News).filter(News.is_private != True).all()
+    if current_user.is_authenticated:
+        all_news = db_sess.query(News).filter((News.user == current_user) | (News.is_private != True)).all()
+    else:
+        all_news = db_sess.query(News).filter(News.is_private != True).all()
+#   all_news = db_sess.query(News).filter(News.is_private != True).all()
     print(all_news)
-    return render_template('news.html', title='Novosti', news=all_news)
+    return render_template('news.html', title='Новости', news=all_news)
+
+@app.route('/newjob', methods=['GET', 'POST'])
+@login_required
+def add_news():
+    form = NewsForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        news = News()
+        news.title = form.title.data
+        news.content = form.content.data
+        news.is_private = form.is_private.data
+        current_user.news.append(news)
+        db_sess.merge(current_user)
+        db_sess.commit()
+        return redirect('/news')
+    return render_template('newsjob.html', title='Добавление новости', form=form)
+
+@app.route('/newjob/<int:id_num>', methods=['GET', 'POST'])
+@login_required
+def edit_news(id_num):
+    form = NewsForm()
+    if request.method == 'GET':
+        db_sess = db_session.create_session()
+        news = db_sess.query(News).filter(News.id == id_num, News.user == current_user).first()
+        if news:
+            form.title.data = news.title
+            form.content.data = news.content
+            form.is_private.data = news.is_private
+        else:
+            abort(404)
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        news = db_sess.query(News).filter(News.id == id_num, News.user == current_user).first()
+        if news:
+            news.title = form.title.data
+            news.content = form.content.data
+            news.is_private = form.is_private.data
+            db_sess.commit()
+            return redirect('/news')
+        else:
+            abort(404)
+    return render_template('newsjob.html', title='Редактирование новости', form=form)
+
+@app.route('/newsdel/<int:news_id>')
+@login_required
+def news_delete(news_id):
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).filter(News.id == news_id, News.user == current_user).first()
+    if news:
+        db_sess.delete(news)
+        db_sess.commit()
+    else:
+        abort(404)
+    return redirect('/news')
+
+@app.route('/adminpage', methods=['GET', 'POST'])
+@login_required
+def adminpanel():
+    if current_user.is_authenticated and current_user.is_admin():
+        db_sess = db_session.create_session()
+        res = db_sess.query(News).all()
+        return render_template('admin.html', title='Panel` administratora', news=res)
+    else:
+        abort(404)
+
+@app.route('/testapi')
+def testapi():
+    return requests.get('http://localhost:5000/api/news').json()
 
 if __name__ == '__main__':
     db_session.global_init('db/news.sqlite')
+    app.register_blueprint(news_api.blueprint)
     app.run(host='localhost', port=5000)
 
     # news = News()
