@@ -21,7 +21,7 @@ from fileinput import filename
 import sqlite3, os.path
 
 import requests
-from flask import Flask, url_for, request, render_template, redirect, abort
+from flask import Flask, url_for, request, render_template, redirect, abort,jsonify, make_response
 from openpyxl.styles.builtins import title
 from pyexpat.errors import messages
 from werkzeug.utils import secure_filename
@@ -50,9 +50,17 @@ def load_user(user_id):
     db_sess = db_session.create_session()
     return db_sess.get(User, user_id)
 
+# @app.errorhandler(404)
+# def not_found(e):
+#     return render_template('404.html', title='Ne naydeno')
+
+@app.errorhandler(400)
+def bad_request(_):
+    return make_response(jsonify({'error': 'Bad request'}), 400)
+
 @app.errorhandler(404)
-def not_found(e):
-    return render_template('404.html', title='Ne naydeno')
+def not_notfound(e):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 @app.errorhandler(401)
 def not_authorized(_):
@@ -257,7 +265,7 @@ def news():
     print(all_news)
     return render_template('news.html', title='Новости', news=all_news)
 
-@app.route('/newjob', methods=['GET', 'POST'])
+@app.route('/newsjob', methods=['GET', 'POST'])
 @login_required
 def add_news():
     form = NewsForm()
@@ -273,7 +281,7 @@ def add_news():
         return redirect('/news')
     return render_template('newsjob.html', title='Добавление новости', form=form)
 
-@app.route('/newjob/<int:id_num>', methods=['GET', 'POST'])
+@app.route('/newsjob/<int:id_num>', methods=['GET', 'POST'])
 @login_required
 def edit_news(id_num):
     form = NewsForm()
@@ -323,7 +331,8 @@ def adminpanel():
 
 @app.route('/testapi')
 def testapi():
-    return requests.get('http://localhost:5000/api/news').json()
+    res = requests.get('http://localhost:5000/api/news').json()
+    return  render_template('testapi.html', title='Тест API')
 
 if __name__ == '__main__':
     db_session.global_init('db/news.sqlite')
