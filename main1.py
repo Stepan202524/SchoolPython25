@@ -33,6 +33,8 @@ from data.users import User
 from data.news import News
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 
+from send_mail import send_mail
+
 app = Flask(__name__)
 
 login_manager = LoginManager()
@@ -92,7 +94,8 @@ def about():
 @app.route('/contacts')
 def contacts():
     print('Funkciya contact')
-    return 'Pishite na derevnyu Dedushke!'
+#    return 'Pishite na derevnyu Dedushke!'
+    return render_template('contacts.html', title='Kontakty')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -333,6 +336,19 @@ def adminpanel():
 def testapi():
     res = requests.get('http://localhost:5000/api/news').json()
     return  render_template('testapi.html', title='Тест API')
+
+@app.route('/sendmail', methods=['GET','POST'])
+def mail_send():
+    name=request.form.get('name')
+    email = request.form.get('email')
+    message = request.form.get('message')
+    return f'Otpravleno na {email} ot {name} s message ({message}).'
+# Отправка mail из обратной связи
+#     temp = (f'Pismo s obratnoy ot {name} s tekstom {message}. Otpravitel` {email}')
+#     mess = temp + message
+#     send_mail('Vash email', 'Obratnaya svyaz`', mess)
+#     send_mail(email, 'Polucheno', f'{name}', 'Thank you')
+#    return render_template('contacts.html', tutle='Otpravleno!', mess='Otpravilos`')
 
 if __name__ == '__main__':
     db_session.global_init('db/news.sqlite')

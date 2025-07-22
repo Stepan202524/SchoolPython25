@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Свяжитесь с нами!</h1>
+    <p>Наши адреса....</p>
+    <div class="col-md-8 mx-auto">
+        <div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/2/saint-petersburg/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Санкт‑Петербург</a><a href="https://yandex.ru/maps/2/saint-petersburg/?ll=30.333212%2C59.924055&utm_medium=mapframe&utm_source=maps&z=14.54" style="color:#eee;font-size:12px;position:absolute;top:14px;">Яндекс Карты</a><iframe src="https://yandex.ru/map-widget/v1/?ll=30.333212%2C59.924055&z=14.54" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>">
+    </div>
+    ></div>
+    <h2>Forma obratnoy svyazi</h2>
+<form action="/sendmail" method="post">
+    <p>Vashe imya:<input type="text" name="name"></p>
+    <p>Vash email:<input type="email" name="email"></p>
+    <p>Vashe message:<input type="message" name="message"></p>
+    <p><input type="submit"></p>
+</form>
+{{mess}}
+{% endblock %}
